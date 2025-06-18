@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # projeHUB-E3 Client
 
 React tabanlı elektrik projesi çizim uygulaması.
@@ -72,3 +73,6 @@ Eğer başka geliştiricilerle paylaşacaksan ileride:
 
 Son güncelleme: `23 Mart 2025`
  
+=======
+# ProjeHUB-E4
+>>>>>>> 52df3a20cdccf0979ce8516593baef62d0715b88
