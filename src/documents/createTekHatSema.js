@@ -45,7 +45,7 @@ console.log("TEK HAT ŞEMASI : ",branchies)
   const sorti_0_lenght=130*Scl 
   let panoH=20*Scl+countOfOut*20*Scl
   let boundingBox={
-    startOffset:50*Scl,
+    startOffset:40*Scl,
     endOffset:50*Scl,
     bottomOffset:50*Scl,
     topOffset:50*Scl,
@@ -79,7 +79,7 @@ console.log("TEK HAT ŞEMASI : ",branchies)
 const frameTop=boundingBox.height +boundingBox.bottomOffset+boundingBox.topOffset
 const frameHeight=frameTop+headerHeight
 const frameWidth=boundingBox.width +boundingBox.startOffset+boundingBox.endOffset
-
+/* 
   result.push(Rectangle  (0,0,
     frameWidth,
    frameTop ,
@@ -88,13 +88,14 @@ const frameWidth=boundingBox.width +boundingBox.startOffset+boundingBox.endOffse
     frameWidth,
    headerHeight ,
     frameOptions))    
+     */
     let text={text:"TEK HAT ŞEMASI".toString(),x:boundingBox.startOffset  ,y:frameTop+15*Scl,textHeight:15*Scl}  
-    text.handle=generateStableId(text)
-    result.push(Text(text.x, text.y, text, 0, options)) 
+  //  text.handle=generateStableId(text)
+  //  result.push(Text(text.x, text.y, text, 0, options)) 
  
     const textHeight=12*Scl
    branchies.forEach((branch,i) => {
-    text={text:(i+1).toString(),x:currentX  ,y:currentY,textHeight:textHeight}  
+    text={text:(i+1).toString(),x:currentX  ,y:currentY+5*Scl,textHeight:textHeight}  
     result.push(PolarLine(currentX,currentY ,0,30*Scl ,  options))    
     result.push(...AnahtarliOtomatikSigorta(currentX1, currentY  , Scl,1, 0,options)) 
     result.push(PolarLine(currentX1+12*Scl,currentY ,0,(countOfOut-i)*75*Scl+150*Scl ,  options))    
@@ -110,17 +111,19 @@ const topY=currentY-(50*Scl +(countOfOut-i)*20*Scl)
     result.push(...Lamba(curX,topY-18*Scl, Scl,0,options))
     result.push(...Anahtar(curX,currentY, Scl,-40,options))
     result.push(...YuvarlakSolid(curX,currentY,2.5*Scl, Scl,options))
+
+  
     text.text=branch.sorti+ " Ayd."
     text.handle=generateStableId(text)
-    result.push(Text(curX, topY-40*Scl, text, 0, options)) 
+    result.push(Text(curX-15*Scl, topY-45*Scl, text, 0, options)) 
 
     text.text=branch.totalPower+" W"
     text.handle=generateStableId(text)
-    result.push(Text(curX/2,topY-18*Scl  , text, 0, options)) 
+    result.push(Text(curX-15*Scl,topY-60*Scl, text, 0, options)) 
 
-    text.text= "2x2.5 mm2 NYA"
+    text.text= "2x2.5 mm² NYA"
     text.handle=generateStableId(text)
-    result.push(Text(curX, text.y, text, 0, options)) 
+    result.push(Text(curX/2+150*Scl, text.y+3*Scl, text, 0, options)) 
 
     text.text= "2x1.5mm²" 
     text.handle=generateStableId(text)

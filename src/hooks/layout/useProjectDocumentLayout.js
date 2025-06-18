@@ -17,8 +17,8 @@ const branchies = [
   {
     id: 'branch-1',
     type: 'light',
-    sorti: 'Aydınlatma-1',
-    totalPower: 500 // Watt
+    sorti: 3,
+    totalPower: 54 // Watt
   },
   {
     id: 'branch-2',

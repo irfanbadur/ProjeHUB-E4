@@ -93,21 +93,26 @@ let result=[]
 
 
 }
-export function YuvarlakSolid(X,Y,r, Scl,options){
-let result=[]
-const path=[
-  {IsClosedFlag:1,
-    edgeType:"Line",
-    NumberOfPolylineVertices:2,
-    bulge:true,
-    points:[
-      X-r*Scl, Y,1,
-      X+r*Scl, Y ,1
-    ]
-  }
-]
-result.push(Hatch(X   ,Y  , path,0,  options))  
-  return result
+ 
+export function YuvarlakSolid(X, Y, r, Scl, options) {
+  const segments = [
+    {
+      type: 'arc',
+      center: { x: X, y: Y },
+      radius: r * Scl,
+      startAngle: 0,
+      endAngle: Math.PI * 2,
+      clockwise: false,
+    }
+  ];
+
+  const entity = {
+    type: 'solidhatch',
+    segments: segments,
+    ...options
+  };
+
+  return [entity];
 }
 export function Firin(X,Y, Scl,rotation,options){
 let result=[]
@@ -124,7 +129,8 @@ const path=[
     ]
   }
 ]
-result.push(Hatch(X   ,Y  , path, 0, options))  
+     result.push(...YuvarlakSolid(X,Y,5*Scl, Scl,options))
+
   return dondur(result,  rotation,X,Y);
 }
  
@@ -461,16 +467,5 @@ function generateTimestampedId() {
   return `id-${timestamp}-${counter}`;
 }
 export function hatchedCircle(X,Y,R,Scl,options){
-  const path=[
-    {IsClosedFlag:1,
-      edgeType:"Line",
-      NumberOfPolylineVertices:2,
-      bulge:true,
-      points:[
-        X-R*Scl, Y,1,
-        X+R*Scl, Y,1
-      ]
-    }
-  ]
- return Hatch(X   ,Y  , path, 0, options)
+      return YuvarlakSolid(X,Y,R*Scl, Scl,options) 
 }

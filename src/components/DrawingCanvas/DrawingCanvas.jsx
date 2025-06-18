@@ -60,6 +60,7 @@ import { useProjectDocumentLayout } from '../../hooks/layout/useProjectDocumentL
 import { useDocumentDragging } from '../../hooks/layout/useDocumentDragging';
 import { useSupplyPoint } from '../../hooks/wiring/useSupplyPoint';
 const documentDefs = [
+  { name: "TekHat  \u015eemas\u0131", w: 1050, h: 500 },
   { name: "Vaziyet Planı", w: 1500, h: 2250 },
   { name: "Topraklama Detayları", w: 2500, h: 2250 },
   { name: "Kat Planı", w: 2500, h: 2250 },
@@ -70,7 +71,6 @@ const documentDefs = [
   { name: "Gerilim Düşümü", w: 1250, h: 550 },
   { name: "Akım Hesabı", w: 1250, h: 350 },
   { name: "Kolon Şeması", w: 1650, h: 2650 },
-  { name: "TekHat  \u015eemas\u0131", w: 1050, h: 500 },
   { name: "TekHat  \u015eemas\u0131", w: 1050, h: 500 },
   { name: "TekHat  \u015eemas\u0131", w: 1050, h: 500 },
   { name: "TekHat  \u015eemas\u0131", w: 1050, h: 500 },
