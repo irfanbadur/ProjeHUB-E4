@@ -1,0 +1,57 @@
+/* Customize the table to ensure it fits well */
+.info-table {
+    width: 100%;
+    padding: 0px;
+    overflow-x: hidden;
+  }
+  
+  .info-table-grid {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #183ea8;
+  }
+  
+  .info-table-grid td {
+    border: 1px solid #0f0e0e;
+    padding: 4px;
+    font-size: 13px;
+    color: white;
+    background-color: #1f1f2e;
+    vertical-align: middle;
+    height: 20px;
+  }
+  
+  .info-label {
+    font-weight: bold;
+    width: 40%;
+  }
+  
+  .info-value {
+    width: 60%;
+  }
+  
+  .info-value input,
+  .info-value select,
+  .info-value button {
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 2px 4px;
+    border: none;
+    background-color: #2c2c3c;
+    color: white;
+  }
+  
+  .info-value button {
+    cursor: pointer;
+    background-color: #333;
+    border: 1px solid #555;
+  }
+  
+  .info-value button:hover {
+    background-color: #444;
+  }
+  

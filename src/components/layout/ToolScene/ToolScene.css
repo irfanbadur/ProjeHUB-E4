@@ -1,0 +1,63 @@
+/* ToolSceneTest Container */
+.ToolSceneTest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1f1f2e;
+  padding: 2px;
+  width: 150px;
+  height: auto;
+  border : #1f1f2e 1px solid;
+}
+
+/* Tool Row - Grid Yapısı */
+.toolRowTest {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 butonlu bir satır */
+  gap: 1px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Tool Button */
+.toolButtonTest {
+  background-color: #1f1f2e;
+  border: rgb(137, 152, 179) solid 1px;
+  border-radius: 1px; /* Butonları köşeli yapalım */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+  font-size: 10px; /* Metin boyutunu küçültüyoruz */
+  width: 30px; /* Butonun genişliğini sabitliyoruz */
+  height: 20px; /* Butonun yüksekliğini sabitliyoruz */
+  min-width: 30px; /* Minimum genişlik */
+  max-width: 30px; /* Maksimum genişlik */
+  min-height: 20px; /* Minimum yükseklik */
+  max-height: 20px; /* Maksimum yükseklik */
+}
+
+.toolButtonTest svg {
+  stroke: rgb(255, 255, 255);
+}
+
+.toolButtonTest:hover {
+  background-color: rgb(34, 41, 51);
+}
+
+/* Active Button Highlight */
+.toolButtonTest.active {
+  background-color: #793eaa;
+}
+
+/* Modify Text Section */
+.modifyTextTest {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 14px;
+}

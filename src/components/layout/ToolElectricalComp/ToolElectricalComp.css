@@ -1,0 +1,54 @@
+/* toolElectricalCompDraw Container */
+.toolElectricalCompDraw {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:  #1f1f2e;
+    padding: 5px;
+     border-left: #010102 1px solid;
+    width: 250px;
+  }
+  
+  .toolElectricalCompRow {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  
+  /* toolElectricalComp Button */
+  .toolElectricalCompButton {
+  
+    background-color:  #1f1f2e;
+    border: rgb(39, 48, 63) solid 1px;
+    border-radius: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .toolElectricalCompButton svg {
+ 
+    stroke: rgb(255, 255, 255);
+  }
+  
+  .toolElectricalCompButton:hover {
+    background-color: rgb(34, 41, 51);
+  }
+  
+  /* Active Button Highlight */
+/*   .toolElectricalCompButton.active {
+    background-color: #793eaa;
+  } */
+  
+  /* Draw Text */
+  .drawText {
+    margin-top: 0;
+    color: #fff;
+    font-size: 12px;
+     
+  }
+  

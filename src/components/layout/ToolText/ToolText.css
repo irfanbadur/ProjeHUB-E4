@@ -1,0 +1,112 @@
+/* ToolText Container */
+.toolDrawText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:  #1f1f2e;
+    padding: 5px;
+    border-left: #010102 1px solid;
+    width: 250px;
+}
+
+.toolRow {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+/* Tool Button */
+.toolButton {
+    background-color:  #1f1f2e;
+    border: rgb(39, 48, 63) solid 1px;
+    border-radius: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    width: 60px;
+}
+.toolButtonFontType {
+    background-color:  #1f1f2e;
+    border: rgb(39, 48, 63) solid 1px;
+    border-radius: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    width: 100px;
+}
+
+.toolButton svg {
+    stroke: rgb(255, 255, 255);
+}
+
+.toolButton:hover {
+    background-color: rgb(34, 41, 51);
+}
+
+/* Active Button Highlight */
+.toolButton.active {
+    background-color: #793eaa;
+}
+
+/* Tool Button Label */
+.toolLabel {
+    position: absolute;
+    bottom: -18px;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.toolButton:hover .toolLabel {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Select Inputs Styling */
+.toolSelect {
+    background-color: #2f333b;
+    color: #fff;
+    border: 1px solid rgb(39, 48, 63);
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 12px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.toolSelect:focus {
+    outline: none;
+    background-color: #444c57;
+}
+.styleToggle {
+    width: 30px;
+    height: 30px;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 14px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  .styleToggle.active {
+    background-color: #cce5ff;
+    border-color: #3399ff;
+  }
+  

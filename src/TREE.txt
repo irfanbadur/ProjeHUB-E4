@@ -1,0 +1,118 @@
+src
+├── commands
+│   ├──drawFromDxf
+│   │   ├──useDrawDxfEntities.js
+│   ├── createSolidHatchFromBoundary.js 
+│   ├── createSolidHatchFromPolyline.js 
+│   ├── drawArcFromCode.js 
+│   ├── drawCircleFromCode.js 
+│   ├── drawEllipseFromCode.js 
+│   ├── drawEllipticArcFromCode.js 
+│   ├── drawLineFromCode.js 
+│   ├── drawMtextFromCode.js 
+│   ├── drawPolylineFromCode.js 
+│   ├── drawRectFromCode.js 
+│   ├── drawSplineFromCode.js 
+│   ├── drawTextFromCode.js 
+│   ├── modifyCopyByCode.js 
+│   ├── modifyHatchByCode.js 
+│   ├── modifyMoveByCode.js 
+│   ├── modifyRotateByCode.js 
+│   │   
+├── components
+│   ├── DrawingCanvas
+│   │   ├── DrawingCanvas.css
+│   │   ├── DrawingCanvas.jsx
+│   ├── layout
+│   │   ├── commandLine
+│   │   │   ├── commandLine.css
+│   │   │   ├── commandLine.jsx
+│   │   ├── propertiesPanel
+│   │   │   ├── PropertiesPanel.css
+│   │   │   ├── PropertiesPanel.jsx
+│   │   ├── TestPanel
+│   │   │   ├── TestPanel.css
+│   │   │   ├── TestPanel.jsx
+│   │   ├── ToolDraw
+│   │   │   ├── ToolDraw.css
+│   │   │   ├── ToolDraw.jsx
+│   │   ├── ToolInstallation
+│   │   │   ├── ToolInstallation.css
+│   │   │   ├── ToolToolInstallationDraw.jsx
+│   │   ├── ToolModify
+│   │   │   ├── ToolModify.css
+│   │   │   ├── ToolModify.jsx
+│   │   ├── ToolMods
+│   │   │   ├── ToolMods.css
+│   │   │   ├── ToolMods.jsx
+│   │   ├── ToolScene
+│   │   │   ├── ToolScene.css
+│   │   │   ├── ToolScene.jsx
+│   │   ├── ToolText
+│   │   │   ├── ToolText.css
+│   │   │   ├── ToolText.jsx
+│   │   ├── TopBar
+│   │   │   ├── TopBar.css
+│   │   │   ├── TopBar.jsx
+│   ├── shared
+│   │   ├── InfoTable.css
+│   │   ├── InfoTable.jsx
+├── context
+│   ├── PanelsContext.js
+├── hooks
+│   ├── useDrawArc.js
+│   ├── useDrawCircle.js
+│   ├── useDrawEllipse.js
+│   ├── useDrawLine.js
+│   ├── useDrawMtext.js
+│   ├── useDrawPolyline.js
+│   ├── useDrawRect.js
+│   ├── useDrawSpline.js
+│   ├── useDrawText.js
+│   ├── useDxfLoader.js
+│   ├── useElectricalPanels.js
+│   ├── useElectricalWiring.js
+│   ├── useErase.js
+│   ├── useGizmo.js
+│   ├── useGizmoRender.js
+│   ├── useModifyCopy.js
+│   ├── useModifyMove.js
+│   ├── useModifyRotate.js
+│   ├── useSelecttedObjectRef.js
+│   ├── useSelection.js
+│   ├── useSnapManager.js
+│   ├── useSnapPoint.js
+│   ├── useTestScene.js
+├── parser
+│   ├── dxfCustomParser.js
+├── redux
+│   ├── dxfSlice.js
+│   ├── gizmoSlice.js
+│   ├── layerSlice.js
+│   ├── modsSlice.js
+│   ├── operationSlice.js
+│   ├── selectionSlice.js
+│   ├── snapSlice.js
+│   ├── store.js
+├── symbolDrawings
+│   ├── createPanel.js
+│   ├── createPreviewPanel.js
+├── utils
+│   ├── checkIntersection.js
+│   ├── cloneUserDataForCopy.js
+│   ├── colorIndex.js
+│   ├── convertSnapMarker.js
+│   ├── createSnapMarker.js
+│   ├── dxfDrawCore.js  
+│   ├── generateUniqueId.js
+│   ├── getMouseWorldPosition.js
+│   ├── getObjectById.js
+│   ├── getSnappedPoint.js
+│   ├── getSnapPointsFromScene.js
+│   ├── icons.js
+│   ├── selectById.js
+│   ├── useInputText.js
+├── App.js
+├── App.test.js
+├── index.js
+├── index.css

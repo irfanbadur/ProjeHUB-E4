@@ -1,0 +1,155 @@
+/* styles.css */
+.my-Machinebutton {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 1px 2px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.2s ease-in-out;
+    text-align: center;
+  }
+  
+  .my-Machinebutton:hover {
+    background: #90b0f0;
+  }
+  .machine-type-menu {
+    position: absolute;
+    background: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    font-family: 'Segoe UI', sans-serif;
+    width: 200px;
+  }
+  
+ 
+  
+  .machine-type-options {
+    padding: 3px;
+  }
+  
+  .machine-type-radio-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+  
+  .machine-type-radio-group label {
+    font-size: 14px;
+  }
+  
+  .machine-type-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-bottom: 8px;
+  }
+  
+  .my-Machinebutton:hover {
+    background: #f0f0f0;
+  }
+  
+  .machine-type-details-button {
+    width: 100%;
+    text-align: left;
+  } 
+  
+  .machine-type-details-table {
+    width: 100%;
+    font-size: 13px;
+  }
+  
+  .machine-type-details-table td {
+    padding: 4px 0;
+  }
+  
+  .machine-type-details-table td:first-child {
+    font-weight: 500;
+  }
+  .machine-type-details-box {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 6px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 8px;
+  }
+  
+  /* Zarif scrollbar */
+  .machine-type-details-box::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .machine-type-details-box::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+  }
+  
+  .machine-type-details-box::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+  
+  .machine-type-details-box:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+  
+  /* Firefox desteği */
+  .machine-type-details-box {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+  }
+  .label-cell {
+    font-weight: 500;
+    padding: 2px 4px;
+    font-size: 13px;
+    text-align: left;
+  }
+  .select-full-width {
+    width: 100%;
+    max-width: 160px; /* veya uygun bir değer */
+  }
+  .label-cell {
+    width: 90px;
+  
+  }
+ 
+  .machine-type-details-table td {
+    max-width: 160px;
+    overflow: hidden;
+  }
+  .textArea{
+    border: none;
+  }
+  .machine-type-menu-header {
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #1d1dbb;
+    border-top-left-radius: 6px;
+    border-top-right-radius:6px;
+    font-weight: 600;
+    font-size: 16px;
+    user-select: none;
+  }
+  .machine-type-menu .close-button {
+    background: transparent;
+    border: none;
+    color: #050505;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+  }
+  
+  .machine-type-menu .close-button:hover {
+    color: rgb(255, 0, 0);
+    font-size: 22px;
+
+  }

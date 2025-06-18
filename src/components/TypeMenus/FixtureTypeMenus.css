@@ -1,0 +1,175 @@
+/* styles.css */
+.my-button {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 1px 2px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.2s ease-in-out;
+    text-align: center;
+  }
+  
+  .my-button:hover {
+    background: #90b0f0;
+  }
+
+  
+  .fixture-type-options {
+    padding: 0px;
+  }
+  
+  .fixture-type-radio-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+  
+  .fixture-type-radio-group label {
+    font-size: 14px;
+  }
+  
+  .fixture-type-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-bottom: 8px;
+  }
+  
+  .my-button:hover {
+    background: #f0f0f0;
+  }
+  
+  .fixture-type-details-button {
+    width: 100%;
+    text-align: left;
+  } 
+  
+  .fixture-type-details-table {
+    width: 100%;
+    font-size: 13px;
+  }
+  
+  .fixture-type-details-table td {
+    padding: 4px 0;
+  }
+  
+  .fixture-type-details-table td:first-child {
+    font-weight: 500;
+  }
+  .fixture-type-details-box {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 0;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1px;
+  }
+  
+  /* Zarif scrollbar */
+  .fixture-type-details-box::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .fixture-type-details-box::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+  }
+  
+  .fixture-type-details-box::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+  
+  .fixture-type-details-box:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+  
+  /* Firefox desteği */
+  .fixture-type-details-box {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+  }
+  .label-cell {
+    font-weight: 500;
+    padding: 2px 4px;
+    font-size: 13px;
+    text-align: left;
+  }
+  .select-full-width {
+    width: 100%;
+    max-width: 160px; /* veya uygun bir değer */
+  }
+  .label-cell {
+    width: 90px;
+  
+  }
+  .td {
+    
+    gap:0;
+    margin: 0;
+    padding: 0;
+    border:"1px solid #000000"
+  }
+  .fixture-type-details-table td {
+    max-width: 160px;
+    overflow: hidden;
+  }
+  .textArea{
+    border: none;
+  }
+  .labelTextFixture{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-bottom: 0px;
+
+  }
+  .fixture-type-menu {
+    position: absolute;
+    background: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    font-family: 'Segoe UI', sans-serif;
+    width: 200px;
+    user-select: none;
+
+  }
+ 
+
+  .fixture-type-menu-header {
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #ffd903;
+    border-top-left-radius: 6px;
+    border-top-right-radius:6px;
+    font-weight: 600;
+    font-size: 16px;
+    user-select: none;
+  }
+
+ 
+  
+  .fixture-type-menu .close-button {
+    background: transparent;
+    border: none;
+    color: #050505;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+  }
+  
+  .fixture-type-menu .close-button:hover {
+    color: rgb(255, 0, 0);
+    font-size: 22px;
+
+  }

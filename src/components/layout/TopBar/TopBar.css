@@ -1,0 +1,111 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* TopBar Container */
+  .topBar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgb(34, 41, 51);
+    border-bottom: rgb(59, 68, 83) solid 1px;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+  
+  .topBarContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 20px;
+  }
+  
+  /* Menu Items */
+  .menuItems {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
+  .menuItems ul {
+    display: flex;
+    gap: 20px;
+    list-style-type: none;
+  }
+  
+  .menuItems ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .menuItems ul li a:hover {
+    color: #1abc9c;
+  }
+  
+  /* Right side (MyApp, Project Name, Fullscreen Icon) */
+  .rightSide {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 50px;
+
+  }
+  
+  .projectName {
+    font-size: 18px;
+    color: #1abc9c;
+    margin-left: 10px;
+     
+  }
+  
+  /* Fullscreen Icon */
+  .fullscreenIcon {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  
+  /* Tools Bar */
+  .tools {
+    background-color: #1f1f2e;
+    padding: 0px;
+  }
+  
+  .tools ul {
+    display: flex;
+    
+    list-style-type: none;
+  }
+  
+  .tools ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .fileUploadLabel {
+    cursor: pointer;
+    color: #fff;
+    padding: 4px 8px;
+    display: inline-block;
+  }
+  

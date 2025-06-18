@@ -1,0 +1,54 @@
+/* ToolDraw Container */
+.toolDraw {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:  #1f1f2e;
+    padding: 5px;
+     border-left: #010102 1px solid;
+    width: 180px;
+  }
+  
+  .toolRow {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  
+  /* Tool Button */
+  .toolButton {
+  
+    background-color:  #1f1f2e;
+    border: rgb(39, 48, 63) solid 1px;
+    border-radius: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .toolButton svg {
+ 
+    stroke: rgb(255, 255, 255);
+  }
+  
+  .toolButton:hover {
+    background-color: rgb(34, 41, 51);
+  }
+  
+  /* Active Button Highlight */
+/*   .toolButton.active {
+    background-color: #793eaa;
+  } */
+  
+  /* Draw Text */
+  .drawText {
+    margin-top: 0;
+    color: #fff;
+    font-size: 12px;
+     
+  }
+  
