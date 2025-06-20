@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
-export function drawEllipticArcFromCode( {
+export function drawEllipticArcFromCode(target, {
   center,
   majorAxisEndPoint,
   axisRatio,
@@ -51,5 +51,6 @@ export function drawEllipticArcFromCode( {
   };
 
  // scene.add(arc);
+ if (target) target.add(arc);
   return arc;
 }

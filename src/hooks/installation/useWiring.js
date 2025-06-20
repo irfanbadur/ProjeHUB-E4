@@ -172,81 +172,11 @@ export default function useWiring(scene, camera, renderer, snapPoints, options =
         const beforePoints = [...verticesRef.current.map(p => ({ x: p.x, y: p.y, z: p.z }))];
         verticesRef.current.push(pointToAdd);
         const afterPoints = [...verticesRef.current.map(p => ({ x: p.x, y: p.y, z: p.z }))];
-
-
-/*         dispatch(addAction({
-            type: 'vertexAdd',
-            objectUUID: 'wireTemp',
-            before: beforePoints,
-            after: afterPoints,
-        })); */
+ 
 
         rebuildTempLine();
     }
-
-
-
-/* 
-    useEffect(() => {
-        if (
-            present?.type === 'vertexAdd' &&
-            present?.objectUUID === 'wireTemp'
-        ) {
-            const points = present.after.map((p) => new THREE.Vector3(p.x, p.y, p.z));
-            verticesRef.current = points;
-
-            if (tempLineRef.current) {
-                scene.remove(tempLineRef.current);
-                tempLineRef.current.geometry.dispose();
-                tempLineRef.current.material.dispose();
-                tempLineRef.current = null;
-            }
-
-            const geometry = new THREE.BufferGeometry().setFromPoints(points);
-            const material = new THREE.LineBasicMaterial({ color: 0xffff00 });
-            const newLine = new THREE.Line(geometry, material);
-            newLine.userData.id = generateUniqueId('polyline')
-
-            newLine.name = 'wirePolyline';
-            scene.add(newLine);
-            tempLineRef.current = newLine;
-        }
-    }, [present]);
-
-
-    useEffect(() => {
-        console.log("PAST  : ", pastLength)
-
-        const newLength = pastLength;
-        const currentLength = verticesRef.current.length;
-
-        if (newLength < currentLength) {
-            verticesRef.current.pop();
-            rebuildTempLine();
-
-            // 💡 Mouse noktası ile yeni son vertex arasında çizgi çiz (preview)
-            if (verticesRef.current.length > 0 && previewEndPointRef.current) {
-                const previewPoints = [...verticesRef.current, previewEndPointRef.current];
-                const geometry = new THREE.BufferGeometry().setFromPoints(previewPoints);
-                const material = new THREE.LineBasicMaterial({ color: 0xffff00 });
-
-                if (tempLineRef.current) {
-                    scene.remove(tempLineRef.current);
-                    tempLineRef.current.geometry.dispose();
-                    tempLineRef.current.material.dispose();
-                }
-
-                tempLineRef.current = new THREE.Line(geometry, material);
-                tempLineRef.current.name = "wirePolyline"
-                tempLineRef.current.userData.id = generateUniqueId('polyline')
-
-                scene.add(tempLineRef.current);
-            }
-        }
-    }, [pastLength]);
-
- */
-
+ 
     useEffect(() => {
       //  if (commandType !== 'createWire' || !scene || !camera || !renderer) return;
       if (!enabled() || !scene || !camera || !renderer) return;
@@ -765,8 +695,13 @@ export default function useWiring(scene, camera, renderer, snapPoints, options =
         };
     }, [commandType, scene, camera, renderer, snapPoints, enabled]);
     return {
-        startWiring: () => { }, // şimdilik boş, ileride özelleştirilir
-        stopWiring: () => { },
+  startWiring: () => {
+    verticesRef.current = [];
+    lastOffsetIndexRef.current = null;
+    directionRef.current = null;
+    tempLineRef.current && scene.remove(tempLineRef.current);
+    tempLineRef.current = null;
+  },        stopWiring: () => { },
         isDrawing: () => verticesRef.current.length > 0,
         wireDataRef: verticesRef, // ya da daha anlamlı bir veri yapısı
         tempLineRef,

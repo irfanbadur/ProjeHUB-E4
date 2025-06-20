@@ -18,7 +18,7 @@ import { generateUniqueId } from '../utils/generateUniqueId';
  *   valign?: number,
  * }} options
  */
-export function drawTextFromCode(  {
+export function drawTextFromCode( target, {
   text = 'Hello',
   position = { x: 0, y: 0 },
   endPoint,
@@ -158,7 +158,9 @@ if (rotation) {
 }
  // 6. Sahneye ekle
 //scene.add(group);
-
+if (target === 'scene') {
+  target.add(group);
+} 
 // 7. userData — hem grup hem mesh için taşı
 group.userData = {
   id: generateUniqueId('text'),

@@ -2,21 +2,28 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePanelModify } from '../../hooks/usePanelModify';
 import { useDispatch } from 'react-redux';
 import './PanelTypeMenus.css' 
-export default function PanelTypeMenu({
+import { setLastBasePoint } from '../../redux/utilsSlice';
+
+export default function MainPanelTypeMenu({
   x,
   y,
   value,
   onClose,
-  onAddPositionChange,
+  onAddPositionChange, 
   onActionSelect,
-  panelDetails,
+  mainPanelDetails,
   onDrag,
   scene,
 }) {
+  console.log("MainpanelDetails : ",mainPanelDetails)
+  const basePoint= mainPanelDetails.basePoint || { x: 0, y: 0, z: 0 };
+
+  const dispatch = useDispatch();
+
   const [addPosition, setAddPosition] = useState('start');
   const [showDetails, setShowDetails] = useState(false);
   const [kullanimAmac, setKullanimAmac] = useState("Mesken");
-  const [panelName,setPanelName]=useState("Panel")
+  const [panelName,setPanelName]=useState("ADP")
   const [panel ,setPanel ]=useState(null)
   const [details,setDetails]=useState({
     kullanimAmac:"Mesken",
@@ -27,33 +34,15 @@ export default function PanelTypeMenu({
     faz:"rst",
     akim:0,
   })
-  console.log("panelDetails : ",panelDetails)
   const [salt,setSalt]=useState()
   const [showSalt,setShowSalt]=useState(false)
   const menuRef = useRef(null);
   const dragData = useRef({ active: false, lastX: 0, lastY: 0 });   
-  const panelId =  panelDetails.ID;
+  const panelId = mainPanelDetails.id || mainPanelDetails.ID;
 
   useEffect(() => {
-    if (!scene || !panelId) return;
-  
-    let foundPanel = null;
-    scene.traverse(obj => {
-      if (obj.userData.id === panelId) {
-        foundPanel = obj.userData;
-      }
-    });
-    if (!foundPanel) return;
-
-    if (foundPanel && foundPanel.name) {
-      setPanelName(foundPanel.name);
-      setPanel(foundPanel)
-    }
-   const updatedPanel= updatePanel(foundPanel)
-   setDetails(updatedPanel.details)
-   setSalt(updatedPanel.salt)
-
-  }, [scene, panelId]);
+   dispatch(setLastBasePoint(basePoint));
+ }, [dispatch, basePoint]);
 
   useEffect(()=>{
     if(!panel)return
@@ -114,7 +103,6 @@ export default function PanelTypeMenu({
     window.removeEventListener('mouseup', handleMouseUp);
   };
   const handleKullanimAmac = (val) => {
-    console.log("KULLANIM AMAC",val.target.value)
     const kullanimAmac=val.target.value
     let talepFak="100%"
 switch(kullanimAmac){
@@ -133,7 +121,6 @@ switch(kullanimAmac){
           talepFak: talepFak
         },
       }))
-    console.log("KULLANIM AMAC setPanel",panel)
 
   };
   useEffect(() => {
@@ -151,7 +138,7 @@ switch(kullanimAmac){
         onMouseDown={handleMouseDown}
         className="panel-type-menu-header"
       > 
-        {panelName }/{details.kullanimAmac}/{details.kuruluGuc} W
+        {panelName } /{details.kuruluGuc} W
         <button
           className="close-button"
           onClick={e => { e.stopPropagation(); onClose(); }}
@@ -161,32 +148,10 @@ switch(kullanimAmac){
       </div>
 
       <div  className="panel-type-options">
-        <div className="panel-type-radio-group">
-          <label style={{ fontSize: '14px' }}>
-            <input
-              type="radio"
-              name="addPosition"
-              value="start"
-              checked={addPosition === 'start'}
-              onChange={handlePositionChange}
-              style={{ marginRight: '4px' }}
-            />
-            Başa Ekle
-          </label>
-          <label style={{ fontSize: '14px' }}>
-            <input
-              type="radio"
-              name="addPosition"
-              value="end"
-              checked={addPosition === 'end'}
-              onChange={handlePositionChange}
-              style={{ marginRight: '4px' }}
-            />
-            Sona Ekle
-          </label>
-        </div>
+     
 
         <div  className="panel-type-buttons">
+          <button onClick={handleAction('drawPanel')} className="my-button">Pano Ekle</button>
           <button onClick={handleAction('drawSocket')} className="my-button">Priz Ekle</button>
           <button onClick={handleAction('drawLight')} className="my-button">Aydınlatma Ekle</button>
           <button onClick={handleAction('drawWashingMach')} className="my-button">Makina Ekle</button>

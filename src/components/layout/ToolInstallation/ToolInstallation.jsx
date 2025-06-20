@@ -34,6 +34,8 @@ const ToolInstallation = () => {
       setActiveButton("wire");
     } else if (commandType === "createNewBranch") {
       setActiveButton("branch");
+    } else if (commandType === "drawSupplyPoint") {
+      setActiveButton("supply");
     } else {
       setActiveButton(null);
     }
@@ -47,6 +49,10 @@ const ToolInstallation = () => {
       setActiveButton(null);
     } else {
       setActiveButton(tool);
+      if (tool === "supply") {
+        dispatch(setCommandType("drawSupplyPoint"));
+        dispatch(setCommandMessage("İlk noktayı seçin")); 
+      }
       if (tool === "pano") {
         dispatch(setCommandType("drawPanel"));
         dispatch(setCommandMessage("İlk noktayı seçin")); 
@@ -95,6 +101,13 @@ const ToolInstallation = () => {
     <div className="toolDraw">
       <div className="toolRow">
    
+        <button
+          className={`toolButton ${activeButton === "supply" ? "active" : ""}`}
+          style={{ width: `${buttonSize}px`, height: `${buttonSize}px` }}
+          onClick={() => handleClick("supply")}
+        >
+        BOX
+        </button>
         <button
           className={`toolButton ${activeButton === "pano" ? "active" : ""}`}
           style={{ width: `${buttonSize}px`, height: `${buttonSize}px` }}

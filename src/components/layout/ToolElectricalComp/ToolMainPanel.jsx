@@ -39,7 +39,7 @@ const tableCellStyle2 = {
 
 
 
-const ToolPrimaryPanel = () => {
+const ToolMainPanel = () => {
   const [selection, setSelection] = useState(null);
   const buttonSize = 30;
   const dispatch = useDispatch();
@@ -61,9 +61,10 @@ const ToolPrimaryPanel = () => {
   });
 
 
-  const handleClick = (val) => {
-    console.log("val  :", val.target.value)
-    setSelection(val.target.value)
+    const handleSymbolClick = (data) => {
+    console.log("Symbol clicked formData.form:", formData);
+      dispatch(setCommandType("drawMainPanel"));
+      dispatch(setCommandMessage("ADP yerleştiriliyor")); 
   };
 
   return (
@@ -80,7 +81,10 @@ const ToolPrimaryPanel = () => {
               </select>
 
             </td>
-            <td  style={tableCellStyle2}rowSpan={4}>
+            <td  style={tableCellStyle2}rowSpan={4}
+               onClick={() => {
+                handleSymbolClick(formData.form)
+               }}>
               {formIcons[formData.form] ? (
                 React.createElement(formIcons[formData.form], {
                   text1: formData.type || "Tip-A1",
@@ -115,4 +119,4 @@ const ToolPrimaryPanel = () => {
   );
 };
 
-export default ToolPrimaryPanel;
+export default ToolMainPanel;

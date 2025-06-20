@@ -45,10 +45,16 @@ import DropdownMenu,{SocketTypeMenu,LightSwitchTypeMenu,
 //  LightFixtureTypeMenu
 } from '../TypeMenus/DropDownMenu';
 import { useGizmoTitle } from '../../hooks/gizmos/useGizmoTitle';
-import  LightFixtureTypeMenu  from '../TypeMenus/LightFixtureTypeMenu';
+//---------------TYPE MENUS ------------------------------
+import LightFixtureTypeMenu  from '../TypeMenus/LightFixtureTypeMenu';
 import PanelTypeMenu from '../TypeMenus/PanellTypeMenu';
+import MainPanelTypeMenu from '../TypeMenus/MainPanelTypeMenu';
 import MachineTypeMenu from '../TypeMenus/MachineTypeMenu';
+import BoxTypeMenu from '../TypeMenus/BoxTypeMenu';
+import CabinTypeMenu from '../TypeMenus/CabinTypeMenu';
+
 import useGlobalUndoRedo from '../../hooks/useGlobalUndoRedo';
+
 //-----------------------------------------------
 import useDrawWire from '../../hooks/installation/useDrawWire';
 import { useBranchManager } from '../../hooks/installation/useBranchManager';
@@ -59,6 +65,9 @@ import './DrawingCanvas.css';
 import { useProjectDocumentLayout } from '../../hooks/layout/useProjectDocumentLayout';
 import { useDocumentDragging } from '../../hooks/layout/useDocumentDragging';
 import { useSupplyPoint } from '../../hooks/wiring/useSupplyPoint';
+import { useMainPanel } from '../../hooks/wiring/useMainPanel';
+import { useCabin } from '../../hooks/wiring/useCabin';
+ 
 const documentDefs = [
   { name: "TekHat  \u015eemas\u0131", w: 1050, h: 500 },
   { name: "Vaziyet Planı", w: 1500, h: 2250 },
@@ -123,19 +132,37 @@ const [panelDetails,       setPanelDetails]       = useState({});
 const [panelMenuMoved,     setPanelMenuMoved] = useState(false);
 
 //---------------------------------------------------------------------
+const [cabinMenuVisible,   setCabinMenuVisible]   = useState(false);
+const [cabinMenuPosition,  setCabinMenuPosition]  = useState({ x: 0, y: 0 });
+const [cabinMenuId,        setCabinMenuId]        = useState(null);
+const [cabinDetails,       setCabinDetails]       = useState({});
+const [cabinMenuMoved,     setCabinMenuMoved] = useState(false);
+//---------------------------------------------------------------------
+const [mainPanelMenuVisible,   setMainPanelMenuVisible]   = useState(false);
+const [mainPanelMenuPosition,  setMainPanelMenuPosition]  = useState({ x: 0, y: 0 });
+const [mainPanelMenuId,        setMainPanelMenuId]        = useState(null);
+const [mainPanelDetails,       setMainPanelDetails]       = useState({});
+const [mainPanelMenuMoved,     setMainPanelMenuMoved] = useState(false);
+
+//---------------------------------------------------------------------
+const [boxMenuVisible,   setBoxMenuVisible]   = useState(false);
+const [boxMenuPosition,  setBoxMenuPosition]  = useState({ x: 0, y: 0 });
+const [boxMenuId,        setBoxMenuId]        = useState(null);
+const [boxDetails,       setBoxDetails]       = useState({});
+const [boxMenuMoved,     setBoxMenuMoved] = useState(false);
+
+//---------------------------------------------------------------------
 const [machineMenuVisible,   setMachineMenuVisible]   = useState(false);
 const [machineMenuPosition,  setMachineMenuPosition]  = useState({ x: 0, y: 0 });
 const [machineMenuId,        setMachineMenuId]        = useState(null);
 const [machineDetails,       setMachineDetails]       = useState({});
 const [machineMenuMoved,     setMachineMenuMoved] = useState(false);
 
-  const {
-  allGroupsRef: layoutGroupsRef,
-  boundsRef: layoutBoundsRef
-} = useProjectDocumentLayout(
-  threeState?.scene,
-  documentDefs
-);
+const {
+  layoutGroups,
+  bounds: layoutBounds
+} = useProjectDocumentLayout(threeState?.scene);
+
 const wireTitles = useMemo(() => {
   console.log("selectedObjectIds: ",selections)
   const titles = [];
@@ -154,7 +181,168 @@ const wireTitles = useMemo(() => {
  
 useEffect(() => {
   if (!threeState?.scene) return; 
+
+
+  //----------------------BOXTYPE MENU-----------------------------------------
+  const selectedBox = threeState.scene.children.find(obj =>
+    obj.userData?.type === 'supplyPoint' &&
+    selectedObjectIds.includes(obj.userData.id)
+  );
+  if (selectedBox) {
+    const vec = selectedBox.position.clone().project(threeState.camera);
+    const x = ((vec.x + 1) / 2) * threeState.renderer.domElement.clientWidth;
+    const y = ((-vec.y + 1) / 2) * threeState.renderer.domElement.clientHeight;
+    if (!boxMenuMoved) {
+      setBoxMenuPosition({ x, y });
+      console.log("SELECTED BOX ",selectedBox)
+    }
+
+    setBoxMenuId(selectedBox.userData.id);
+
+    // pull whatever details you need out of userData or elsewhere:
+    setBoxDetails({
+      'ID': selectedBox.userData.id,
+      'Tip': selectedBox.userData.subtype || '—',
+      'basePoint':selectedBox.userData.basePoint,
+      'Konum': `(${selectedBox.position.x.toFixed(1)}, ${selectedBox.position.y.toFixed(1)})`,
+      // add more detail fields as needed…
+    });
+    console.log("boxDetails ",boxDetails)       
+    
+    setLightMenuVisible(false);   
+    setMenuVisible(false);
+    setLightFixtureMenuVisible(false); 
+    setPanelMenuVisible(false);
+    setMainPanelMenuVisible(false);
+    setBoxMenuVisible(true); 
+    setMachineMenuVisible(false);
+
+
+  } else {
+    setBoxMenuVisible(false);
+  }
+  //----------------------CABIN MENU-----------------------------------------
+
+  const selectedCabin = threeState.scene.children.find(obj =>
+    obj.userData?.type === 'cabin' &&
+    selectedObjectIds.includes(obj.userData.id)
+  );
+  if (selectedCabin) {
+    const vec = selectedCabin.position.clone().project(threeState.camera);
+    const x = ((vec.x + 1) / 2) * threeState.renderer.domElement.clientWidth;
+    const y = ((-vec.y + 1) / 2) * threeState.renderer.domElement.clientHeight;
+    console.log("SELECTED CABIN ",selectedCabin.userData)
+    if (!cabinMenuMoved) {
+      setCabinMenuPosition({ x, y });
+    }
+
+    setCabinMenuId(selectedCabin.userData.id);
+
+    // pull whatever details you need out of userData or elsewhere:
+    setCabinDetails({
+      'ID': selectedCabin.userData.id,
+      'Tip': selectedCabin.userData.subtype || '—',
+      'basePoint': selectedCabin.userData.basePoint,
+
+      'Konum': `(${selectedCabin.position.x.toFixed(1)}, ${selectedCabin.position.y.toFixed(1)})`,
+      // add more detail fields as needed…
+    });
+    console.log("cabinDetails ",cabinDetails)
+
+    
+    setCabinMenuVisible(true);   
+    setLightMenuVisible(false);   
+    setMenuVisible(false);
+    setLightFixtureMenuVisible(false); 
+    setPanelMenuVisible(false);
+    setMainPanelMenuVisible(false);
+    setBoxMenuVisible(false); 
+    setMachineMenuVisible(false);
+  } else {
+    setCabinMenuVisible(false);
+  }
+  //----------------------MAIN PANEL MENU-----------------------------------------
+
+  const selectedMainPanel = threeState.scene.children.find(obj =>
+    obj.userData?.type === 'mainPanel' &&
+    selectedObjectIds.includes(obj.userData.id)
+  );
+  if (selectedMainPanel) {
+    const vec = selectedMainPanel.position.clone().project(threeState.camera);
+    const x = ((vec.x + 1) / 2) * threeState.renderer.domElement.clientWidth;
+    const y = ((-vec.y + 1) / 2) * threeState.renderer.domElement.clientHeight;
+    console.log("SELECTED MAİN PANEL ",selectedMainPanel.userData)
+    if (!mainPanelMenuMoved) {
+      setMainPanelMenuPosition({ x, y });
+    }
+
+    setMainPanelMenuId(selectedMainPanel.userData.id);
+
+    // pull whatever details you need out of userData or elsewhere:
+    setMainPanelDetails({
+      'ID': selectedMainPanel.userData.id,
+      'Tip': selectedMainPanel.userData.subtype || '—',
+      'basePoint':selectedMainPanel.userData.basePoint,
+
+      'Konum': `(${selectedMainPanel.position.x.toFixed(1)}, ${selectedMainPanel.position.y.toFixed(1)})`,
+      // add more detail fields as needed…
+    });
+    console.log("mainPanelDetails ",mainPanelDetails)
+    
+    
+    setMainPanelMenuVisible(true);
+    setLightMenuVisible(false);   
+    setMenuVisible(false);
+    setLightFixtureMenuVisible(false); 
+    setPanelMenuVisible(false);
+    setBoxMenuVisible(false); 
+    setMachineMenuVisible(false);
+    setCabinMenuVisible(false);
+
+  } else {
+    setMainPanelMenuVisible(false);
+  }
+//-----------------------PANEL MENU----------------------------------------
+
+  const selectedPanel = threeState.scene.children.find(obj =>
+    obj.userData?.type === 'electricalPanel' &&
+    selectedObjectIds.includes(obj.userData.id)
+  );
+  if (selectedPanel) {
+    console.log("SELECTED   PANEL ",selectedPanel)
+    const vec = selectedPanel.position.clone().project(threeState.camera);
+    const x = ((vec.x + 1) / 2) * threeState.renderer.domElement.clientWidth;
+    const y = ((-vec.y + 1) / 2) * threeState.renderer.domElement.clientHeight;
+    if (!panelMenuMoved) {
+      setPanelMenuPosition({ x, y });
+    }
+    
+    setPanelMenuId(selectedPanel.userData.id);
+    setPanelDetails({
+      'ID': selectedPanel.userData.id,
+      'Tip': selectedPanel.userData.subtype || '—',
+      'Konum': `(${selectedPanel.position.x.toFixed(1)}, ${selectedPanel.position.y.toFixed(1)})`,
+      // add more detail fields as needed…
+    });
+    console.log("drawingCanvas panelDetails ",panelDetails)
+
+    
+    
+    setLightMenuVisible(false);   
+    setMenuVisible(false);
+    setLightFixtureMenuVisible(false); 
+    setPanelMenuVisible(true);
+    setMainPanelMenuVisible(false);
+    setBoxMenuVisible(false); 
+    setMachineMenuVisible(false);
+    setCabinMenuVisible(false);
+
+  } else {
+    setPanelMenuVisible(false);
+  }
   // Socket seçildiyse:
+
+  //----------------------SOCKET MENU----------------------------
   const selectedSocket = threeState.scene.children.find(obj =>
     obj.userData?.type === 'socket' &&
     selectedObjectIds.includes(obj.userData.id)
@@ -166,12 +354,22 @@ useEffect(() => {
     setMenuPosition({ x, y });
     setMenuSocketId(selectedSocket.userData.id);
     setSocketType(selectedSocket.userData.subtype || 'normal');
+
     setMenuVisible(true);
+    setLightFixtureMenuVisible(false);
+    setLightMenuVisible(false);  
+    setMainPanelMenuVisible(false);
+    setBoxMenuVisible(false);
+    setPanelMenuVisible(false);
+    setMachineMenuVisible(false);
+    setCabinMenuVisible(false);
+
     } else {
     setMenuVisible(false);
   }
 
   // LightSwitch seçildiyse:
+  //-----------------------LIGHT SWITCH MENU----------------------------------------
   const selectedLight = threeState.scene.children.find(obj =>
     obj.userData?.type === 'LightSwitch' &&
     selectedObjectIds.includes(obj.userData.id)
@@ -184,11 +382,21 @@ useEffect(() => {
     setLightMenuPosition({ x: lx, y: ly });
     setLightSwitchType(selectedLight.userData.subtype || 'normal');
     setLightSwitchId(selectedLight.userData.id);
+
     setLightMenuVisible(true);   
+    setMenuVisible(false);
+    setLightFixtureMenuVisible(false); 
+    setPanelMenuVisible(false);
+    setMainPanelMenuVisible(false);
+    setBoxMenuVisible(false); 
+    setMachineMenuVisible(false);
+    setCabinMenuVisible(false);
+
   } else {
     setLightMenuVisible(false);
     
   } 
+//-----------------------LIGHT FIXTURE MENU----------------------------------------
   const selectedLightFixture = threeState.scene.children.find(obj =>
     obj.userData?.type === 'LightFixture' &&
     selectedObjectIds.includes(obj.userData.id)
@@ -204,40 +412,25 @@ useEffect(() => {
 
     setLightFixtureType(selectedLightFixture.userData.subtype || 'normal');
     setLightFixtureId(selectedLightFixture.userData.id);
-    setLightFixtureMenuVisible(true);
     setFixtureDetails({ 'ID': selectedLightFixture.userData.id,  });
+    
+    
+    setLightMenuVisible(false);   
+    setMenuVisible(false);
+    setLightFixtureMenuVisible(true); 
+    setPanelMenuVisible(false);
+    setMainPanelMenuVisible(false);
+    setBoxMenuVisible(false); 
+    setMachineMenuVisible(false);
+    setCabinMenuVisible(false);
+
 
   } else {
     setLightFixtureMenuVisible(false);
   } 
-  const selectedPanel = threeState.scene.children.find(obj =>
-    obj.userData?.type === 'electricalPanel' &&
-    selectedObjectIds.includes(obj.userData.id)
-  );
-  if (selectedPanel) {
-    // compute screen coords
-    const vec = selectedPanel.position.clone().project(threeState.camera);
-    const x = ((vec.x + 1) / 2) * threeState.renderer.domElement.clientWidth;
-    const y = ((-vec.y + 1) / 2) * threeState.renderer.domElement.clientHeight;
-    if (!panelMenuMoved) {
-      setPanelMenuPosition({ x, y });
-    }
-    
-    setPanelMenuId(selectedPanel.userData.id);
 
-    // pull whatever details you need out of userData or elsewhere:
-    setPanelDetails({
-      'ID': selectedPanel.userData.id,
-      'Tip': selectedPanel.userData.subtype || '—',
-      'Konum': `(${selectedPanel.position.x.toFixed(1)}, ${selectedPanel.position.y.toFixed(1)})`,
-      // add more detail fields as needed…
-    });
 
-    setPanelMenuVisible(true);
-  } else {
-    setPanelMenuVisible(false);
-  }
-
+//-----------------------------MACHINE----------------------------------
   const selectedMachine = threeState.scene.children.find(obj =>
     obj.userData?.type === 'machine' &&
     selectedObjectIds.includes(obj.userData.id)
@@ -261,7 +454,15 @@ useEffect(() => {
       // add more detail fields as needed…
     });
 
+    setLightMenuVisible(false);   
+    setMenuVisible(false);
+    setLightFixtureMenuVisible(false); 
+    setPanelMenuVisible(false);
+    setMainPanelMenuVisible(false);
+    setBoxMenuVisible(false); 
     setMachineMenuVisible(true);
+    setCabinMenuVisible(false);
+
   } else {
     setMachineMenuVisible(false);
   }
@@ -323,23 +524,7 @@ useEffect(() => {
     controls.enableRotate = false;
     controls.enablePan = true;
     controls.enableZoom = true;
-
-    // Helpers
-/*     const axesHelper = new THREE.AxesHelper(1000);
-    axesHelper.userData.ignoreRaycast = true;
-    scene.add(axesHelper); */
-
-/*     const gridHelper = new THREE.GridHelper(10000, 100);
-    gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0.2 ; // çok soluk
-    gridHelper.material.depthWrite = false; // daha arka planda kalsın
-    gridHelper.userData.isSelectable = false; // seçimden hariç tut
-    gridHelper.userData.ignoreRaycast = true;
-    gridHelper.rotation.x = Math.PI / 2;
-    scene.add(gridHelper); */
-
-
-
+ 
     setThreeState({ scene, camera, renderer }); //{ onSceneReady }daha sonra slilinecek 
     onSceneReady?.(scene); // ✅ App'e sahneyi bildir   >>test amaçlı toolScene e sahneyi prop olarak göndermek için daha sonra slilinecek
   
@@ -404,8 +589,7 @@ useEffect(() => {
     threeState?.camera,
     threeState?.renderer,
     snapPoints
-  );
-  
+  );  
   useDrawSpline(
     threeState?.scene,
     threeState?.camera,
@@ -453,12 +637,11 @@ useEffect(() => {
  
  
 useDocumentDragging(
-  layoutGroupsRef.current,
+  layoutGroups ?? [],
   threeState?.camera,
   threeState?.renderer?.domElement,
-  layoutBoundsRef.current
+  layoutBounds ?? {}
 );
-
 
   //-------------   KOMUTLARI -----------------------------
 
@@ -504,6 +687,21 @@ useSupplyPoint(
   snapPoints,
   targetPlanes   
 );
+useMainPanel(
+  threeState?.scene,
+   threeState?.camera,
+  threeState?.renderer,
+  snapPoints,
+  targetPlanes   
+);
+useCabin(
+  threeState?.scene,
+   threeState?.camera,
+  threeState?.renderer,
+  snapPoints,
+  targetPlanes   
+);
+
 useElectricalPanels(
   threeState?.scene,
    threeState?.camera,
@@ -626,6 +824,7 @@ useGizmoTitle(threeState?.scene, threeState?.camera, threeState?.renderer, wireT
           onClose={() => setLightFixtureMenuVisible(false)}
         />
       )}
+       {/* -------------------------------------- */}
 
     {panelMenuVisible && (
   <PanelTypeMenu
@@ -643,6 +842,59 @@ useGizmoTitle(threeState?.scene, threeState?.camera, threeState?.renderer, wireT
     onClose={() => setPanelMenuVisible(false)}
   />
 )}
+       {/* -------------------------------------- */}
+
+    {cabinMenuVisible && (
+  <CabinTypeMenu
+    scene={threeState?.scene}
+    x={cabinMenuPosition.x}
+    y={cabinMenuPosition.y}
+    cabinDetails={cabinDetails}
+    onAddPositionChange={(val) => {
+      // handle 'Yukarı Ekle' / 'Aşağı Ekle'
+    }}
+    onDrag={(dx, dy) => {
+      setCabinMenuPosition(pos => ({ x: pos.x + dx, y: pos.y + dy }));
+      setCabinMenuMoved(true);
+    }}
+    onClose={() => setCabinMenuVisible(false)}
+  />
+)}
+    {mainPanelMenuVisible && (
+  <MainPanelTypeMenu
+    scene={threeState?.scene}
+    x={mainPanelMenuPosition.x}
+    y={mainPanelMenuPosition.y}
+    mainPanelDetails={mainPanelDetails}
+    onAddPositionChange={(val) => {
+      // handle 'Yukarı Ekle' / 'Aşağı Ekle'
+    }}
+    onDrag={(dx, dy) => {
+      setMainPanelMenuPosition(pos => ({ x: pos.x + dx, y: pos.y + dy }));
+      setMainPanelMenuMoved(true);
+    }}
+    onClose={() => setMainPanelMenuVisible(false)}
+  />
+)}
+    {/* ------------------------------------------ */}
+    {boxMenuVisible && (
+  <BoxTypeMenu
+    scene={threeState?.scene}
+    x={boxMenuPosition.x}
+    y={boxMenuPosition.y}
+    boxDetails={boxDetails}
+    onAddPositionChange={(val) => {
+      // handle 'Yukarı Ekle' / 'Aşağı Ekle'
+    }}
+    onDrag={(dx, dy) => {
+      setBoxMenuPosition(pos => ({ x: pos.x + dx, y: pos.y + dy }));
+      setBoxMenuMoved(true);
+    }}
+    onClose={() => setBoxMenuVisible(false)}
+  />
+)}
+    {/* ------------------------------------------ */}
+
     {machineMenuVisible && (
   <MachineTypeMenu
     scene={threeState?.scene}

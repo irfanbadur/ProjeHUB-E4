@@ -3,21 +3,21 @@ import { drawPolylineFromCode } from '../commands/drawPolylineFromCode';
 import { createSolidHatchFromBoundary } from '../commands/createSolidHatchFromBoundary';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { createTextSprite } from '../utils/createTextSprite';
-export function createSupplyPoint(
+export function createMainPanel(
   scene, 
   mousePos,
   text = "Panel" 
 
 ) {
   const group = new THREE.Group(); // ana grup
-  group.name="panel"
-  const panelID = generateUniqueId('panel');
-  console.log("createSupplyPoint mousePos"  ,mousePos)
+  group.name="mainPanel"
+  const panelID = generateUniqueId('mainPanel');
+  console.log("createMainPanel PANEL")
   const offsetGroup = new THREE.Group(); // içerikler için offset grubu
   offsetGroup.name="offsetGroup"
   // Panel boyutları
-  const panelWidth =  25;
-  const panelHeight = 25;
+  const panelWidth =  20;
+  const panelHeight = 50;
 
   const basePoint = {
     x: mousePos.x, 
@@ -46,7 +46,7 @@ export function createSupplyPoint(
 
   if (polyline) {
     polyline.userData = { isPanelPart: true,panelID };
-    polyline.name = 'box-outer';
+    polyline.name = 'mainPanel-outer';
     offsetGroup.add(polyline);
   }
 
@@ -63,10 +63,9 @@ export function createSupplyPoint(
 
   group.userData = {
     id: panelID,
-    type: 'supplyPoint',
-    function: 'supplyPoint',
-    name: 'supplyPoint', 
-
+    type: 'mainPanel',
+    function: 'distribution-meter',
+    name: 'ADP', 
     isSelectable: true,
     isPanelPreview: true,
     originalColor: 0xffffff,

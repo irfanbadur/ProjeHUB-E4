@@ -9,7 +9,7 @@ import {
 } from '../../redux/operationSlice';
 import { createSnapMarker } from '../../utils/createSnapMarker';
 import { useInputText } from '../../utils/useInputText';
-import { generateUniqueId } from '../../utils/generateUniqueId';
+
 import { getSnappedPoint,getSnappedPointForPanel } from '../../utils/getSnappedPoint';
 import { createSingleSocket } from '../../symbolDrawings/createSocketSymbols';
 import { singleCircleBuat } from '../../symbolDrawings/createSocketSymbols';

@@ -5,16 +5,17 @@ import {
   resetOperation,
   setCommandMessage,
 } from '../../redux/operationSlice';
-import { createSupplyPoint } from '../../symbolDrawings/createSupplyPoint';
+import { createPanel } from '../../symbolDrawings/createPanel';
 
-export const useSupplyPoint = (scene, camera, renderer) => {
+export const useElectricalPanels = (scene, camera, renderer) => {
   const previewPanelRef = useRef(null);
   const rotationPanelRef = useRef(false);
   const dispatch = useDispatch();
+const symmetricalOffset= 26
   const { commandType } = useSelector((state) => state.operation);
 
   useEffect(() => {
-    if (commandType !== 'drawSupplyPoint' || !scene || !camera || !renderer) return;
+    if (commandType !== 'drawPanel' || !scene || !camera || !renderer) return;
     dispatch(setCommandMessage('Panel yerleştirme noktasını seçin'));
     
     const domElement = renderer.domElement;
@@ -113,8 +114,7 @@ else
     });
   }
 
-  const tempGroup = createSupplyPoint(scene, mousePos, "SupplyPoint");
- 
+  const tempGroup = createPanel(scene, mousePos,createPanelDirection,symmetricalOffset, true);
   previewPanelRef.current = tempGroup;
   tempGroup.rotation.z = angleRadians;
 
@@ -162,8 +162,9 @@ else
         if(obj.userData.type==="electricalPanel")
           panels.push(obj)
       })
- 
-      const tempGroup = createSupplyPoint(scene, mousePos, "SupplyPoint");
+      const panelKatPlanNo=panels.length
+
+      const tempGroup = createPanel(scene, mousePos,createPanelDirection,symmetricalOffset, true,panelKatPlanNo);
   
       tempGroup.rotation.z = angleRadians;
     
@@ -213,4 +214,5 @@ else
       }
     };
   }, [commandType, scene, camera, renderer, dispatch]);
+  
 };

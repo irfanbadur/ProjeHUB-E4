@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { ColorIndex1 } from '../utils/colorIndex';
-export function drawMtextFromCode(  entity) {
+export function drawMtextFromCode( target, entity) {
   const parsedTextData = parseText(entity);
   const dpi = window.devicePixelRatio || 1;
   const baseFontSize = entity.height || 10;
@@ -224,6 +224,11 @@ const mesh = new THREE.Mesh(geometry, material);
   };
   
  // scene.add(mesh);
+ if (target === 'scene') {
+    target.add(mesh);
+  } else if (target === 'group') {
+    target.add(mesh);
+  }
   return mesh;
 }
 

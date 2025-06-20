@@ -34,7 +34,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
       case 'LINE': {
         const [start, end] = entity.vertices || [];
         if (start && end) {
-          const line = drawLineFromCode(
+          const line = drawLineFromCode(null, 
             start,
             end,
             color,
@@ -50,7 +50,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
       }
 
       case 'CIRCLE':
-       const circle =  drawCircleFromCode(  {
+       const circle =  drawCircleFromCode( null, {
           center: entity.center,
           radius: entity.radius,
           color,
@@ -74,7 +74,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
           clockwise = !clockwise;
         }
 
-       const arc = drawArcFromCode(  {
+       const arc = drawArcFromCode( null, {
           center: entity.center,
           radius: entity.radius,
           startAngle: entity.startAngle,
@@ -94,7 +94,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
         const isFullEllipse = entity.startAngle === 0 && entity.endAngle === 2 * Math.PI;
         let ellipse
         if (!isFullEllipse) {
-           ellipse=drawEllipticArcFromCode(  {
+           ellipse=drawEllipticArcFromCode( null, {
             center: entity.center,
             majorAxisEndPoint: entity.majorAxisEndPoint,
             axisRatio: entity.axisRatio,
@@ -109,7 +109,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
           const radiusY = radiusX * entity.axisRatio;
           const rotation = Math.atan2(majorY, majorX);
 
-         ellipse= drawEllipseFromCode(  {
+         ellipse= drawEllipseFromCode(null,  {
             center: entity.center,
             radiusX,
             radiusY,
@@ -126,7 +126,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
       }
       case 'RECT':
 
-        const rect = drawRectFromCode(  {
+        const rect = drawRectFromCode( null,  {
           start: entity.start,
           end: entity.end,
           color,
@@ -140,7 +140,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
       case 'LWPOLYLINE': {
         let polyline
         if (Array.isArray(entity.vertices) && entity.vertices.length >= 2) {
-         polyline = drawPolylineFromCode(  {
+         polyline = drawPolylineFromCode( null, {
             points: entity.vertices,
             color,
             closed: entity.shape
@@ -158,7 +158,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
       case 'SPLINE': {
         let spline
         if (Array.isArray(entity.fitPoints) && entity.fitPoints.length >= 2) {
-          spline = drawSplineFromCode(  {
+          spline = drawSplineFromCode( null,  {
             points: entity.fitPoints,
             color,
           });
@@ -209,7 +209,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
 
       case 'TEXT': {
         console.log("dxfDrawCore: TEXT entity found:", entity);
-        const text = drawTextFromCode(  {
+        const text = drawTextFromCode( null, {
           text: entity.text,
           position: entity.startPoint,                  // ✅ DXF verisinden
           endPoint:  entity.endPoint || entity.startPoint,                    // ✅ DXF verisinden
@@ -231,7 +231,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
 
 
        case 'MTEXT':
-       const mtext = drawMtextFromCode(  {
+       const mtext = drawMtextFromCode( null, {
           text: entity.text,
           position: entity.position,
           font: entity.font,
@@ -254,7 +254,7 @@ export function dxfDrawCore(scene, entities = [], blocks = {}, target) {
         break;
 
       case 'solidhatch':
-       const solidHatch = createSolidHatchFromBoundary(  {
+       const solidHatch = createSolidHatchFromBoundary( null, {
           segments: entity.segments,
           color,
         });

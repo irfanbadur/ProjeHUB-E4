@@ -32,7 +32,7 @@ const ToolSupply = () => {
 
   const [formData, setFormData] = useState({
     form: "Şebeke",
-    type: "",
+    type: "Şebeke",
     power: 0,
     description1: "Şebeke",
     description2: "123",

@@ -7,6 +7,8 @@ import snapReducer from './snapSlice'
 import dxfReducer from './dxfSlice'
 import layerReducer from './layerSlice'
 import operationHistoryReducer from './operationHistorySlice'
+import supplyReducer  from './supplySlice';
+import utilsReducer  from './utilsSlice';
 // diğer reducer'lar varsa ekle
 
 export const store = configureStore({
@@ -19,6 +21,8 @@ export const store = configureStore({
     dxf       :dxfReducer,
     layer     :layerReducer,
     operationHistory: operationHistoryReducer,
+    supply     : supplyReducer,
+    utils      : utilsReducer,
 
     // diğer reducer'lar
   },

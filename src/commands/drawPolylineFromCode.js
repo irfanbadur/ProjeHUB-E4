@@ -2,7 +2,9 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
-export function drawPolylineFromCode(  { points, color = 0xffffff, closed = false  }) {
+export function drawPolylineFromCode( target, { points, 
+  color = 0xffffff, closed = false  }
+) {
   if (  !Array.isArray(points) || points.length < 2) return;
 
   // Make a shallow copy of the points array to avoid modifying the original array
@@ -34,6 +36,7 @@ export function drawPolylineFromCode(  { points, color = 0xffffff, closed = fals
   };
 
  // scene.add(line);
+  if (target) target.add(line); 
   return line;
 }
 

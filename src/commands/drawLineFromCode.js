@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
-export function drawLineFromCode( start, end, color = 0xffffff ) {
+export function drawLineFromCode(target, start, end, color = 0xffffff ) {
   if (!start || !end) return;
 
   const geometry = new THREE.BufferGeometry().setFromPoints([
@@ -19,6 +19,7 @@ export function drawLineFromCode( start, end, color = 0xffffff ) {
   };
 
   //scene.add(line);
+  if (target) target.add(line);
   return line;
 }
 /*    KULLANIM

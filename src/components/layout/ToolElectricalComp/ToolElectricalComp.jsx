@@ -1,13 +1,12 @@
 import React, { useState ,useEffect} from "react";
 import { useDispatch,useSelector   } from "react-redux";
 import "./ToolElectricalComp.css";
-import { getIcon } from "../../../utils/icons";
+
 import ToolSecondaryPanel from "./ToolSecondaryPanel";
 
 
 
-import { setCommandType,resetOperation,setCommandMessage  } from "../../../redux/operationSlice"
-import ToolPrimaryPanel from "./ToolPrimaryPanel";
+import ToolMainPanel from "./ToolMainPanel";
 import ToolSupply from "./ToolSupply";
 import ToolSocket from "./ToolSocket";
 import ToolLighting from "./ToolLighting";
@@ -17,7 +16,7 @@ import ToolEquipment from "./ToolEquipment";
  
 
 const ToolElectricalComp  = () => {
-  const [selection, setSelection] = useState(null);
+  const [selection, setSelection] = useState("box");
   const buttonSize = 30;
   const dispatch = useDispatch();
   const commandType = useSelector((state) => state.operation.commandType);
@@ -49,9 +48,9 @@ const ToolElectricalComp  = () => {
             </tr>
             <tr>
               <td>
-                                 {selection == "box" ? <ToolSupply  /> : null}
+                 {selection == "box" ? <ToolSupply  /> : null}
                  {selection == "TaliPano" ? <ToolSecondaryPanel  /> : null}
-                 {selection == "ADP" ? <ToolPrimaryPanel  /> : null}
+                 {selection == "ADP" ? <ToolMainPanel  /> : null}
                  {selection == "socket" ? <ToolSocket  /> : null}
                  {selection == "cihaz" ? <ToolEquipment  /> : null}
                  {selection == "lighting" ? <ToolLighting  /> : null}

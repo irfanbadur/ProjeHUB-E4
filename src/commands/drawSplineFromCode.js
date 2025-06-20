@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
-export function drawSplineFromCode(  { points, color = 0xffffff }) {
+export function drawSplineFromCode(target,  { points, color = 0xffffff }) {
   if (  !Array.isArray(points) || points.length < 2) return;
 
   const curve = new THREE.CatmullRomCurve3(
@@ -24,6 +24,7 @@ export function drawSplineFromCode(  { points, color = 0xffffff }) {
   };
 
 //  scene.add(spline);
+if (target) target.add(spline);
   return spline;
 }
 

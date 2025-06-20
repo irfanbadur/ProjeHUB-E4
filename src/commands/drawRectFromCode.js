@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
-export function drawRectFromCode( {
+export function drawRectFromCode( target,{
   start,
   end,
   color = 0xffffff
@@ -40,6 +40,7 @@ export function drawRectFromCode( {
   };
 
  // scene.add(rect);
+ if (target) target.add(rect);
   return rect;
 }
 

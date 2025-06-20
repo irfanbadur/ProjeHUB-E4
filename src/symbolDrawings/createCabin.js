@@ -3,21 +3,20 @@ import { drawPolylineFromCode } from '../commands/drawPolylineFromCode';
 import { createSolidHatchFromBoundary } from '../commands/createSolidHatchFromBoundary';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { drawCircleFromCode } from '../commands/drawCircleFromCode';
-export function createPanel(scene, mousePos,dir,symmetricalOffset, isPreview = false,panelKatPlanNo) {
+export function createCabin(scene, mousePos,  text = "Panel" ) {
   const group = new THREE.Group(); // ana grup
-  group.name="panel"
-  const panelID = generateUniqueId('panel');
+  group.name="cabin"
+  const panelID = generateUniqueId('cabin');
 
   const offsetGroup = new THREE.Group(); // içerikler için offset grubu
   offsetGroup.name="offsetGroup"
   // Panel boyutları
-  const panelWidth = dir*15;
-  const panelHeight = 25;
+  const panelWidth =  20;
+  const panelHeight = 20;
 
   const basePoint = {
     x: mousePos.x,
     y: mousePos.y,
-    
   };
 //------------------------------
   // Ana grup tıklanan yere yerleşir
@@ -31,58 +30,62 @@ export function createPanel(scene, mousePos,dir,symmetricalOffset, isPreview = f
   // === 1. Polyline ===
   const polyline = drawPolylineFromCode(scene, {
     points: [
-      { x: -halfW+symmetricalOffset*dir, y: -halfH },
-      { x: -halfW+symmetricalOffset*dir, y: halfH },
-      { x: halfW+symmetricalOffset*dir ,y: halfH },
-      { x: halfW+symmetricalOffset*dir, y: -halfH },
+      { x: -halfW , y: -halfH },
+      { x: -halfW , y: halfH },
+      { x: halfW  ,y: halfH },
+      { x: halfW , y: -halfH },
+      { x: -halfW , y: halfH },
+      { x: halfW , y: halfH },
+      { x: -halfW , y: -halfH },
+      { x: halfW , y: -halfH },
     ],
-    color: isPreview ? 0xcccccc : 0xffffff,
-    closed: true,
+    color:  0xffffff,
+    closed: false,
   });
 
   if (polyline) {
     polyline.userData = { isPanelPart: true,panelID };
-    polyline.name = 'panel-outer';
+    polyline.name = 'cabin-outer';
     offsetGroup.add(polyline);
   }
 
   // === 2. Hatch ===
-  const hatch = createSolidHatchFromBoundary(scene, {
+   const hatch1 = createSolidHatchFromBoundary(scene, {
     segments: [
-      { type: 'line', from: { x: -halfW + symmetricalOffset * dir, y: halfH }, 
-      to: { x: halfW + symmetricalOffset * dir, y: -halfH } },
-      { type: 'line', from: { x: -halfW + symmetricalOffset * dir, y: -halfH }, 
-      to: { x: -halfW + symmetricalOffset * dir, y: -halfH } },
+      { type: 'line', from: { x: -halfW , y: halfH }, 
+      to: { x: -halfW , y:- halfH } },
+      { type: 'line', from: { x: -halfW , y:  halfH }, 
+      to: { x: -halfW*2  , y: 0 } },
+    
     ],
     color: 0xff0000,
   });
 
-  if (hatch) {
-    hatch.name = 'panel-hatch';
-    hatch.userData = { isPanelPart: true,panelID };
-
-    offsetGroup.add(hatch);
+  if (hatch1) {
+    hatch1.name = 'cabin-hatch1';
+    hatch1.userData = { isPanelPart: true,panelID };
+    offsetGroup.add(hatch1);
   }
+ 
 
+ 
 
   group.userData = {
     id: panelID,
-    type: 'electricalPanel',
-    function: 'electricalPanel',
-    name: 'ZKT',
-    panelKatPlanNo,
+    type: 'cabin',
+    function: 'electricalCabin',
+    name: 'KOFRE', 
 
     isSelectable: true,
     isPanelPreview: true,
     originalColor: 0xffffff,
     outs: [],
     outSnaps: [],
-    basePoint: { ...basePoint },
-    symmetricalOffset,
+    basePoint: { ...basePoint }, 
     height:panelHeight,
     startH:panelHeight/2,
     endH:panelHeight/2-5,
-    dir,
+  
     details:{
       kullanimAmac:"Mesken",
       aboneTipi:"Mesken",

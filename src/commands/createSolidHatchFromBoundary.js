@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
  
-export function createSolidHatchFromBoundary(  { segments, color = 0xff0000 }) {
+export function createSolidHatchFromBoundary( target, { segments, color = 0xff0000 }) {
   if (  !segments || !Array.isArray(segments)) return;
 
   const shape = new THREE.Shape();
@@ -41,7 +41,7 @@ export function createSolidHatchFromBoundary(  { segments, color = 0xff0000 }) {
     isSelectable: true,
     originalColor: color,
   };
- 
+ if (target) target.add(mesh);
   return mesh;
 }
  

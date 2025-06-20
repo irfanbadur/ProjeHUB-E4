@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
-export function drawEllipseFromCode(  {
+export function drawEllipseFromCode(target,  {
   center,
   radiusX,
   radiusY,
@@ -43,6 +43,7 @@ export function drawEllipseFromCode(  {
   };
 
  // scene.add(ellipse);
+ if (target) target.add(ellipse);
   return ellipse;
 }
 

@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
-export function drawCircleFromCode(  { center, radius, color = 0xffffff }) {
+export function drawCircleFromCode(target,  { center, radius, color = 0xffffff }) {
   if (  !center || !radius) return;
 
   const segments = 64;
@@ -33,6 +33,7 @@ export function drawCircleFromCode(  { center, radius, color = 0xffffff }) {
   };
 
   //scene.add(circle);
+  if (target) target.add(circle);
   return circle;
 }
 

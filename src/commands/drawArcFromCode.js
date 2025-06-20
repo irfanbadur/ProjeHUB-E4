@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { generateUniqueId } from '../utils/generateUniqueId';
 
-export function drawArcFromCode(  {
+export function drawArcFromCode( target, {
   center,
   radius,
   startAngle,
@@ -62,6 +62,7 @@ export function drawArcFromCode(  {
   };
 
  // scene.add(arc);
+ if (target) target.add(arc);
   return arc;
 }
 
